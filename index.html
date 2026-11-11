@@ -198,7 +198,7 @@ h1 canvas{display:block;height:min(62svh,46vw);aspect-ratio:4/5;border-radius:va
 
 /* routes */
 .routes .left{grid-column:1 / span 5;display:grid;gap:24px;align-content:start}
-.eq{font-size:var(--lead);line-height:1.3;white-space:nowrap;overflow-x:auto;padding-bottom:4px}
+.eq{font-size:min(var(--lead),7.4vw);line-height:1.5;white-space:nowrap}
 .eq b{font-weight:500;color:var(--accent)}
 .routes .cols{grid-column:7 / -1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gap) 40px;align-content:start}
 .routes dl{margin:16px 0 0;display:grid;gap:16px}
@@ -787,6 +787,24 @@ footer{padding-top:clamp(48px,6vw,88px);padding-bottom:28px}
   var SUBJECT='Fund independent research on ocean alkalinity enhancement';
   var AT=(($('page')||{dataset:{}}).dataset.phase==='after')?',':' at COP31,';
   var letterText=function(){ return ta.innerText.replace(/\n{3,}/g,'\n\n').trim(); };
+  /* the same letter as simple HTML, so email apps that accept formatting keep the points bold */
+  var esc=function(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); };
+  var letterHTML=function(){
+    return [].filter.call(ta.querySelectorAll('p'),function(p){ return p.offsetParent!==null||getComputedStyle(p).display!=='none'; })
+      .map(function(p){ var s=esc(p.innerText.trim()).replace(/\n/g,'<br>'); if(!s) return ''; return p.classList.contains('pt')?'<p><b>'+s+'</b></p>':'<p>'+s+'</p>'; })
+      .join('');
+  };
+  /* rich copy where the browser allows it, plain text otherwise; returns a promise */
+  var copyLetter=function(){
+    var text=letterText();
+    try{
+      if(window.ClipboardItem&&navigator.clipboard&&navigator.clipboard.write){
+        return navigator.clipboard.write([new ClipboardItem({'text/plain':new Blob([text],{type:'text/plain'}),'text/html':new Blob([letterHTML()],{type:'text/html'})})])
+          .catch(function(){ return navigator.clipboard.writeText(text); });
+      }
+      return navigator.clipboard.writeText(text);
+    }catch(e){ return Promise.reject(e); }
+  };
   var fill=function(id,text){ var el=$(id); if(el) el.textContent=text; };
   fName.addEventListener('input',function(){ fill('l-name', fName.value.trim()||'[Your name]'); });
   fRole.addEventListener('input',function(){ fill('l-role', fRole.value.trim()||'[Your role and organisation]'); });
@@ -1027,7 +1045,7 @@ Zimbabwe|Ministry of Environment, Climate, Tourism and Hospitality Industry|clim
     var addr=$('st-email').textContent; if(!addr) return;
     var text=letterText();
     this.href='mailto:'+addr+'?subject='+encodeURIComponent(SUBJECT)+'&body='+encodeURIComponent(text.replace(/\n/g,'\r\n'));
-    try{ navigator.clipboard.writeText(text).then(function(){ toast.textContent='The letter is also copied, in case your email app shortens it.'; },function(){}); }catch(e){}
+    copyLetter().then(function(){ toast.textContent='The letter is also copied, in case your email app shortens it.'; },function(){});
   });
   $('copy-addr').addEventListener('click',function(){
     var t=$('st-email').textContent, done=function(){ $('toast').textContent='Address copied.'; }, fb=function(){ try{ var rg=document.createRange(); rg.selectNodeContents($('st-email')); var sl=window.getSelection(); sl.removeAllRanges(); sl.addRange(rg); }catch(e){} $('toast').textContent='Address selected. Press Cmd+C or Ctrl+C to copy it.'; };
@@ -1035,7 +1053,7 @@ Zimbabwe|Ministry of Environment, Climate, Tourism and Hospitality Industry|clim
   });
   $('copy').addEventListener('click',function(){
     var fallback=function(){ try{ var rg=document.createRange(); rg.selectNodeContents(ta); var sl=window.getSelection(); sl.removeAllRanges(); sl.addRange(rg); }catch(e){} toast.textContent='Letter selected. Press Cmd+C or Ctrl+C to copy it.'; };
-    try{ navigator.clipboard.writeText(letterText()).then(function(){ lab.textContent='Copied'; toast.textContent='Copied. Paste it into an email to your delegation.'; setTimeout(function(){lab.textContent='Copy the letter'},2400); },fallback); }catch(e){ fallback(); }
+    copyLetter().then(function(){ lab.textContent='Copied'; toast.textContent='Copied. Paste it into an email to your delegation.'; setTimeout(function(){lab.textContent='Copy the letter'},2400); },fallback);
   });
 
   /* hero: a window that travels down through the sea as the page scrolls */
