@@ -94,6 +94,7 @@ h1 canvas{display:block;height:min(62svh,46vw);aspect-ratio:4/5;border-radius:va
 .caps{grid-column:1 / span 6;display:flex;align-items:flex-end;min-height:calc(var(--lead) * 3.7)}
 .caps p{font-size:var(--lead);line-height:1.22;max-width:21em;transition:opacity 260ms ease,transform 400ms var(--ease)}
 .caps p.out{opacity:0;transform:translateY(10px)}
+.caps .cap-more{display:none}
 .act{grid-column:8 / -1;display:flex;flex-direction:column;align-items:flex-end;gap:12px;text-align:right}
 .status{font-size:var(--small);color:var(--muted)}
 .js .hero.held{height:220svh}
@@ -266,10 +267,13 @@ footer{padding-top:clamp(48px,6vw,88px);padding-bottom:28px}
   h1{display:block;font-size:17.5vw;align-self:start}
   h1 span{display:block}
   h1 canvas{width:100%;height:auto;aspect-ratio:3/2;margin:10px 0}
-  .under{display:block}
-  .caps{min-height:0}
+  .under{display:flex;flex-direction:column}
+  .caps{display:contents}
   .caps p{max-width:none}
-  .act{align-items:stretch;text-align:left;margin-top:20px}
+  #cap{order:1}
+  .act{order:2;align-items:stretch;text-align:left;margin-top:20px}
+  .caps .cap-more{display:block;order:3;margin-top:14px}
+  .caps #cap + .cap-more{margin-top:28px}
   .act .btn{width:100%;text-align:center}
   .js .hero.held{height:auto}
   .js .hero.held .stage{position:static}
@@ -329,6 +333,8 @@ footer{padding-top:clamp(48px,6vw,88px);padding-bottom:28px}
     <div class="under">
       <div class="caps" id="caps">
         <p id="cap">The ocean has quietly taken in 29% of the CO<sub>2</sub> we emit. Since 2016 it has stopped taking more.</p>
+        <p class="cap-more">Adding alkalinity lets the surface absorb more. Field trials have begun, one of them traced through open water with pink dye.</p>
+        <p class="cap-more">The carbon can stay dissolved as bicarbonate for 10,000 years or more. <strong><span class="st-s">Whether that is safe at scale is the research COP31 can fund.</span><span class="st-a">Whether that is safe at scale is what publicly funded research can settle.</span></strong></p>
       </div>
       <div class="act">
         <span class="status" id="status">COP31 · Antalya · 9 to 20 November 2026</span>
@@ -339,13 +345,13 @@ footer{padding-top:clamp(48px,6vw,88px);padding-bottom:28px}
 </section>
 
 <section class="intro wrap" aria-label="What happened in the Gulf of Maine">
-  <p>In August 2025, scientists on a research ship <img src="assets/rv-atlantis.jpg" alt="A Woods Hole research ship" width="1920" height="1280"> released alkalinity and pink dye into the Gulf of Maine <img src="assets/gulf-of-maine-bloom.jpg" alt="The Gulf of Maine seen from space" width="1446" height="964"> and tracked the patch for five days with gliders <img src="assets/slocum-glider.jpg" alt="A yellow underwater glider" width="1920" height="1274">. Early results found no significant change in the plankton and larvae they measured.<a class="ref" href="#s3">3</a></p>
+  <p>In August 2025, scientists on a research ship <img src="assets/rv-atlantis.jpg" alt="A Woods Hole research ship" width="1920" height="1280"> released alkalinity and pink dye into the Gulf of Maine <img src="assets/gulf-of-maine-bloom.jpg" alt="The Gulf of Maine seen from space" width="1446" height="964"> and tracked the patch for five days with gliders <img src="assets/slocum-glider.jpg" alt="A yellow underwater glider" width="1920" height="1274">. So far, no significant change in plankton or larvae.<a class="ref" href="#s3">3</a></p>
 </section>
 
 <section class="sec stats wrap grid" id="science" aria-labelledby="stats-h">
   <div class="left">
-    <h2 id="stats-h">The largest sink has stalled</h2>
-    <p class="measure">The ocean is the biggest carbon sink we have, and nobody asked it to be. Ocean alkalinity enhancement, or OAE, asks one practical question: can we safely raise what the sea is able to hold? In theory the answer could reach billions of tonnes a year.<a class="ref" href="#s13">13</a></p>
+    <h2 id="stats-h">The ocean sink has stalled</h2>
+    <p class="measure">The ocean absorbs nearly a third of the CO<sub>2</sub> we emit, and nobody asked it to. That uptake has been flat since 2016, which the Global Carbon Budget puts largely down to climate variability.<a class="ref" href="#s1">1</a> Ocean alkalinity enhancement, or OAE, asks one practical question: <strong>can we safely raise what the sea is able to hold?</strong> In theory the answer could reach billions of tonnes a year.<a class="ref" href="#s13">13</a></p>
   </div>
   <div class="figs">
     <p class="fig"><span class="int">29</span><span class="dec"></span><span class="cap">percent of the CO<sub>2</sub> people emitted over the past decade was taken up by the ocean<a class="ref" href="#s1">1</a></span></p>
@@ -451,13 +457,13 @@ footer{padding-top:clamp(48px,6vw,88px);padding-bottom:28px}
   <h2 id="risk-h">The risks, stated plainly</h2>
   <div class="first">
     <h3>Verification</h3>
-    <p>Proving that a specific tonne was removed, and telling it apart from the sea’s natural swings, is still the hardest open problem in OAE.<a class="ref" href="#s5">5</a><a class="ref" href="#s10">10</a></p>
+    <p><strong>Proving that a specific tonne was removed</strong>, and telling it apart from the sea’s natural swings, is still the hardest open problem in OAE.<a class="ref" href="#s5">5</a><a class="ref" href="#s10">10</a></p>
     <p class="sub">The research group CarbonPlan puts confidence in verifying the electrochemical route at 3 out of 5.<a class="ref" href="#s18">18</a></p>
   </div>
   <div class="items">
     <div class="item"><h3>Ecology</h3><p><strong>Local pH spikes</strong>, trace metals from minerals, particles and shifts in plankton. Lab effects depend on dose and exposure time.<a class="ref" href="#s6">6</a></p></div>
     <div class="item"><h3>Governance</h3><p><strong>Water crosses borders.</strong> The London Protocol’s geoengineering amendment covers only ocean fertilization and is not yet in force.<a class="ref" href="#s7">7</a></p></div>
-    <div class="item"><h3>Equity</h3><p><strong>Who benefits</strong>, who carries the risk and who decides. Coastal and Indigenous communities need <span class="st-a">a real say in</span><span class="st-s">real power over</span> trials near them.<a class="ref" href="#s6">6</a></p></div>
+    <div class="item"><h3>Equity</h3><p><strong>Who benefits, who carries the risk and who decides.</strong> Coastal and Indigenous communities need <span class="st-a">a real say in</span><span class="st-s">real power over</span> trials near them.<a class="ref" href="#s6">6</a></p></div>
     <div class="item"><h3>Moral hazard</h3><p><strong>Less pressure to cut emissions.</strong> Visible investment in removal could weaken the case for cutting them. Any framework has to face that directly.<a class="ref" href="#s2">2</a></p></div>
   </div>
 </section>
@@ -518,7 +524,7 @@ footer{padding-top:clamp(48px,6vw,88px);padding-bottom:28px}
       <p class="pt st-a">5. State plainly that OAE adds to emission cuts and never replaces them.</p>
       <p class="st-a">None of this commits anyone to deployment. It commits us to finding out, in the open.</p>
       <p class="st-s">That is why public research has to come before commercial scale. I ask you to support a COP31 outcome that:</p>
-      <p class="pt st-s">1. Funds openly published research on monitoring, reporting and verification, reviewed by people who neither fund nor sell OAE.</p>
+      <p class="pt st-s">1. Funds openly published research on monitoring, reporting and verification, reviewed by people with no commercial stake in OAE.</p>
       <p class="pt st-s">2. Sets ecological thresholds that pause a trial automatically.</p>
       <p class="pt st-s">3. Clarifies jurisdiction, liability and consent under UNCLOS and the London Protocol.</p>
       <p class="pt st-s">4. Gives coastal and Indigenous communities real decision power over trials near them.</p>
@@ -934,7 +940,7 @@ Zimbabwe|Ministry of Environment, Climate, Tourism and Hospitality Industry|clim
   });
 
   /* hero: a window that travels down through the sea as the page scrolls */
-  var hero=document.querySelector('.hero'), stage=hero.querySelector('.stage'), cv=$('sea'), ctx=cv.getContext('2d'), cap=$('cap'), CAPS=[cap.innerHTML,'Adding alkalinity lets the surface absorb more. Field trials have begun, one of them traced through open water with pink dye.','What dissolves stays down as bicarbonate for 10,000 years or more. '+(($('page')||{dataset:{}}).dataset.stance==='strict'?'<strong>Whether that is safe at scale is the research COP31 can fund.</strong>':'<strong>Whether that is safe at scale is what publicly funded research can settle.</strong>')];
+  var hero=document.querySelector('.hero'), stage=hero.querySelector('.stage'), cv=$('sea'), ctx=cv.getContext('2d'), cap=$('cap'), CAPS=[cap.innerHTML].concat([].map.call(hero.querySelectorAll('.cap-more'),function(n){ return n.innerHTML; }));
   var W=0,H=0,cam=0,camT=0,running=false,visible=true,last=0,mol=[],dots=[];
   var YS=0.62, BANDS=[[YS,'#2A93B8'],[1.3,'#15698C'],[1.95,'#0C4A6B'],[2.5,'#07324D']];
   var rnd=Math.random;
