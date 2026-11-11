@@ -159,6 +159,7 @@ strong{font-weight:600}
 .nav ul a:not(.btn){text-decoration:none;padding:6px 0}
 .nav ul a:not(.btn):hover{text-decoration:underline}
 .nav .btn{min-height:44px;padding:8px 18px;font-size:var(--small)}
+.lang{min-height:44px;padding:6px 4px;border:0;border-bottom:2px solid var(--ink);border-radius:0;background:transparent;color:var(--ink);font-family:var(--text);font-size:var(--small);font-weight:600;cursor:pointer}
 h1{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;column-gap:clamp(20px,3vw,48px);font-size:clamp(3rem,5.2vw,7rem);white-space:nowrap;align-self:center}
 h1 sub{font-size:0.55em;vertical-align:-0.08em}
 h1 .b{text-align:right}
@@ -314,6 +315,9 @@ footer{padding-top:clamp(48px,6vw,88px);padding-bottom:28px}
 .foot-top #foot-status{margin-left:auto;text-align:right}
 .wordmark-big{font-size:clamp(3.4rem,13.4vw,16rem);margin:72px 0 16px;white-space:nowrap}
 .to-top{display:inline-block;margin-bottom:40px;font-size:var(--small);color:#fff}
+.langs{display:flex;flex-wrap:wrap;gap:6px 24px;list-style:none;margin:0 0 22px;padding:0;font-size:var(--small)}
+.langs a{color:#fff;text-decoration:none}
+.langs a:hover{text-decoration:underline}
 .foot-meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 32px;font-size:var(--small);color:var(--field-muted)}
 .foot-meta ul{display:flex;flex-wrap:wrap;gap:6px 24px;list-style:none;margin:0;padding:0}
 .foot-meta a{color:#fff;text-decoration:none}
@@ -329,7 +333,8 @@ footer{padding-top:clamp(48px,6vw,88px);padding-bottom:28px}
 }
 
 @media (max-width:1000px){
-  .nav ul li:not(:last-child){display:none}
+  .nav ul li:not(:last-child):not(.lang-li){display:none}
+  .nav ul{gap:14px}
   .funds .left,.who,.stats .left,.figs,.routes .left,.routes .cols,.dur .chart,.dur .right,.ev .pic,.tl,.risks h2,.risks .first,.ask .pic,.ask .right,.letter .left,.sheet,.qa,.src h2,.src ol,.src .credits{grid-column:1 / -1}
   .who,.figs,.routes .cols,.tl,.ask .right,.sheet,.src ol{margin-top:40px}
   .ev .pic{max-width:420px}
@@ -381,6 +386,18 @@ footer{padding-top:clamp(48px,6vw,88px);padding-bottom:28px}
   .js .hero.held .stage{position:static}
 }
 </style>
+<link rel="alternate" hreflang="en" href="https://alkalinityask.life/">
+<link rel="alternate" hreflang="x-default" href="https://alkalinityask.life/">
+<link rel="alternate" hreflang="es" href="https://alkalinityask.life/es/">
+<link rel="alternate" hreflang="fr" href="https://alkalinityask.life/fr/">
+<link rel="alternate" hreflang="it" href="https://alkalinityask.life/it/">
+<link rel="alternate" hreflang="de" href="https://alkalinityask.life/de/">
+<link rel="alternate" hreflang="pt" href="https://alkalinityask.life/pt/">
+<link rel="alternate" hreflang="tr" href="https://alkalinityask.life/tr/">
+<link rel="alternate" hreflang="ru" href="https://alkalinityask.life/ru/">
+<link rel="alternate" hreflang="ar" href="https://alkalinityask.life/ar/">
+<link rel="alternate" hreflang="zh" href="https://alkalinityask.life/zh/">
+<script>(function(){try{if(/[?&]lang=/.test(location.search))return;var s=["es", "fr", "it", "de", "pt", "tr", "ru", "ar", "zh"],l=(navigator.languages&&navigator.languages.length)?navigator.languages:[navigator.language||""];for(var i=0;i<l.length;i++){var c=String(l[i]).toLowerCase().split("-")[0];if(c==="en")return;if(s.indexOf(c)>=0){location.replace(c+"/"+location.hash);return;}}}catch(e){}})();</script>
 <style>body{margin:0}[hidden]{display:none!important}</style>
 </head>
 <body>
@@ -400,12 +417,13 @@ footer{padding-top:clamp(48px,6vw,88px);padding-bottom:28px}
 <section class="hero" id="top" aria-labelledby="h1">
   <div class="stage wrap">
     <nav class="nav" aria-label="Primary">
-      <a class="wordmark" href="#top">The Alkalinity Ask</a>
+      <a class="wordmark" href="#top" translate="no">The Alkalinity Ask</a>
       <ul>
         <li><a href="#science">Science</a></li>
         <li><a href="#evidence">Evidence</a></li>
         <li><a href="#risks">Risks</a></li>
         <li><a href="#ask">The ask</a></li>
+        <li class="lang-li" translate="no"><select id="lang" class="lang" aria-label="Language"><option value="./?lang=en" lang="en" selected>EN</option><option value="es/" lang="es">ES</option><option value="fr/" lang="fr">FR</option><option value="it/" lang="it">IT</option><option value="de/" lang="de">DE</option><option value="pt/" lang="pt">PT</option><option value="tr/" lang="tr">TR</option><option value="ru/" lang="ru">RU</option><option value="ar/" lang="ar">AR</option><option value="zh/" lang="zh">中文</option></select></li>
         <li><a class="btn btn-ink" href="#letter">Send the letter</a></li>
       </ul>
     </nav>
@@ -719,8 +737,9 @@ footer{padding-top:clamp(48px,6vw,88px);padding-bottom:28px}
       <span><span class="ph-cop">An independent call for ocean alkalinity research funding at COP31.</span><span class="ph-after">An independent call for publicly funded ocean alkalinity research, first made at COP31.</span> Not affiliated with the organisations it cites.</span>
       <span id="foot-status" aria-live="off">Negotiations close on 20 November 2026.</span>
     </div>
-    <p class="wordmark-big" aria-hidden="true">The Alkalinity Ask</p>
+    <p class="wordmark-big" aria-hidden="true" translate="no">The Alkalinity Ask</p>
     <a class="to-top" href="#top">Back to top</a>
+    <ul class="langs" translate="no" aria-label="Language"><li><a href="./?lang=en" lang="en" hreflang="en">English</a></li><li><a href="es/" lang="es" hreflang="es">Español</a></li><li><a href="fr/" lang="fr" hreflang="fr">Français</a></li><li><a href="it/" lang="it" hreflang="it">Italiano</a></li><li><a href="de/" lang="de" hreflang="de">Deutsch</a></li><li><a href="pt/" lang="pt" hreflang="pt">Português</a></li><li><a href="tr/" lang="tr" hreflang="tr">Türkçe</a></li><li><a href="ru/" lang="ru" hreflang="ru">Русский</a></li><li><a href="ar/" lang="ar" hreflang="ar">العربية</a></li><li><a href="zh/" lang="zh" hreflang="zh">中文</a></li></ul>
     <div class="foot-meta">
       <ul>
         <li><a href="#science">Science</a></li>
@@ -730,6 +749,7 @@ footer{padding-top:clamp(48px,6vw,88px);padding-bottom:28px}
         <li><a href="#letter">The letter</a></li>
         <li><a href="#faq">Questions</a></li>
         <li><a href="#sources">Sources</a></li>
+        <li><a href="https://www.instagram.com/alkalinityask/" target="_blank" rel="noopener">Instagram</a></li>
         <li class="foot-brief"><a href="cop31-brief.pdf" target="_blank" rel="noopener"><span class="ph-cop">At COP31? </span>Download the Brief</a></li>
       </ul>
       <span>This page collects no personal data and sets no cookies.</span>
@@ -741,6 +761,8 @@ footer{padding-top:clamp(48px,6vw,88px);padding-bottom:28px}
 <script>
 (function(){
   var root=document.documentElement; root.classList.add('js');
+  /* translated pages set window.I18N before this script; the English page does not */
+  var L=window.I18N||null, tx=function(k,en){ return (L&&L[k])||en; }, fmt=function(k,n){ return L[k].replace('{n}',n); };
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var $=function(id){return document.getElementById(id)};
 
@@ -751,6 +773,13 @@ footer{padding-top:clamp(48px,6vw,88px);padding-bottom:28px}
   function updateStatus(){
     try{
       var today=antalyaDay(Date.now()), st=$('status'), fs=$('foot-status');
+      if(L){
+        if(today<START){ var o2=Math.round((START-today)/DAY); st.textContent=fmt('js.st_before',o2); fs.textContent=fmt('js.fs_before',o2); }
+        else if(today<LAST){ var d2=Math.round((LAST-today)/DAY)+1; st.textContent=fmt('js.st_during',d2); fs.textContent=fmt('js.fs_during',d2); }
+        else if(today===LAST){ st.textContent=L['js.st_last']; fs.textContent=L['js.fs_last']; }
+        else { st.textContent=L['js.st_after']; fs.textContent=L['js.fs_after']; }
+        return;
+      }
       if(today<START){ var o=Math.round((START-today)/DAY); st.textContent='COP31 opens in Antalya in '+plural(o)+'.'; fs.textContent='COP31 opens in '+plural(o)+'. Negotiations run from 9 to 20 November 2026.'; }
       else if(today<LAST){ var d=Math.round((LAST-today)/DAY)+1; st.textContent='COP31 is under way in Antalya. '+plural(d)+' of negotiations left.'; fs.textContent=plural(d)+' left. Negotiations close on 20 November 2026.'; }
       else if(today===LAST){ st.textContent='COP31 is under way in Antalya. Today is the last day of negotiations.'; fs.textContent='Last day. Negotiations close today, 20 November 2026.'; }
@@ -790,9 +819,12 @@ footer{padding-top:clamp(48px,6vw,88px);padding-bottom:28px}
     });
   }
 
+  /* language switch */
+  var langSel=$('lang'); if(langSel) langSel.addEventListener('change',function(){ if(langSel.value) location.href=langSel.value; });
+
   /* the letter */
   var ta=$('letter-text'), fName=$('f-name'), fRole=$('f-role'), fCountry=$('f-country'), toast=$('toast'), lab=$('copy-label');
-  var SUBJECT='Fund independent research on ocean alkalinity enhancement';
+  var SUBJECT=tx('js.subject','Fund independent research on ocean alkalinity enhancement');
   var AT=(($('page')||{dataset:{}}).dataset.phase==='after')?',':' at COP31,';
   var letterText=function(){ return ta.innerText.replace(/\n{3,}/g,'\n\n').trim(); };
   /* the same letter as simple HTML, so email apps that accept formatting keep the points bold */
@@ -814,8 +846,9 @@ footer{padding-top:clamp(48px,6vw,88px);padding-bottom:28px}
     }catch(e){ return Promise.reject(e); }
   };
   var fill=function(id,text){ var el=$(id); if(el) el.textContent=text; };
-  fName.addEventListener('input',function(){ fill('l-name', fName.value.trim()||'[Your name]'); });
-  fRole.addEventListener('input',function(){ fill('l-role', fRole.value.trim()||'[Your role and organisation]'); });
+  var DEF_NAME=$('l-name').textContent, DEF_ROLE=$('l-role').textContent, COPY_LABEL=lab.textContent;
+  fName.addEventListener('input',function(){ fill('l-name', fName.value.trim()||DEF_NAME); });
+  fRole.addEventListener('input',function(){ fill('l-role', fRole.value.trim()||DEF_ROLE); });
   /* national focal points, one listed address per country, from the UN climate secretariat's directory */
   var NFP=`Afghanistan||
 Albania|Ministry of Tourism and Environment|ministria.mtm@turizmi.gov.al
@@ -1016,17 +1049,17 @@ Yemen|Ministry of Water and Environment|info@epa-ye.org
 Zambia|Ministry of Green Economy and Environment|info@mgee.gov.zm
 Zimbabwe|Ministry of Environment, Climate, Tourism and Hospitality Industry|climatechange@environment.gov.zw`.split('\n').map(function(l){ return l.split('|'); });
   NFP.forEach(function(r,i){ var o=document.createElement('option'); o.value=String(i); o.textContent=r[0]; fCountry.appendChild(o); });
-  (function(){ var o=document.createElement('option'); o.value='other'; o.textContent='My country is not listed'; fCountry.appendChild(o); })();
+  (function(){ var o=document.createElement('option'); o.value='other'; o.textContent=tx('js.other','My country is not listed'); fCountry.appendChild(o); })();
   var THE=/^(United|Republic|Democratic|Russian|Syrian|Central African|Dominican|European|Holy|State of|Lao )/, THE2={'Bahamas':1,'Netherlands':1,'Philippines':1,'Gambia':1,'Maldives':1,'Marshall Islands':1,'Solomon Islands':1,'Cook Islands':1,'Comoros':1,'Seychelles':1,'Congo':1};
   fCountry.addEventListener('change',function(){
     var v=fCountry.value, r=NFP[+v], hit=$('st-hit'), none=$('st-none'), empty=$('st-empty');
-    if(v===''||v==='other'||!r){ fill('l-greet','To our delegation'+AT); hit.hidden=true; empty.hidden=(v==='other'); none.hidden=(v!=='other'); return; }
+    if(v===''||v==='other'||!r){ if(!L) fill('l-greet','To our delegation'+AT); hit.hidden=true; empty.hidden=(v==='other'); none.hidden=(v!=='other'); return; }
     var name=r[0].replace(/\s*\(.*\)$/,''); if(THE.test(name)||THE2[name]) name='the '+name;
-    fill('l-greet','To the delegation of '+name+AT);
+    if(!L) fill('l-greet','To the delegation of '+name+AT); /* translated letters keep the general greeting */
     empty.hidden=true;
     if(!r[2]){ hit.hidden=true; none.hidden=false; return; }
     none.hidden=true; hit.hidden=false;
-    $('st-org').textContent=(r[1]||'the national focal point')+', '+r[0].replace(/\s*\(.*\)$/,'');
+    $('st-org').textContent=(r[1]||tx('js.nfp','the national focal point'))+', '+r[0].replace(/\s*\(.*\)$/,'');
     $('st-email').textContent=r[2];
     $('st-mail').href='mailto:'+r[2]+'?subject='+encodeURIComponent(SUBJECT);
   });
@@ -1053,15 +1086,15 @@ Zimbabwe|Ministry of Environment, Climate, Tourism and Hospitality Industry|clim
     var addr=$('st-email').textContent; if(!addr) return;
     var text=letterText();
     this.href='mailto:'+addr+'?subject='+encodeURIComponent(SUBJECT)+'&body='+encodeURIComponent(text.replace(/\n/g,'\r\n'));
-    copyLetter().then(function(){ toast.textContent='The letter is also copied, in case your email app shortens it.'; },function(){});
+    copyLetter().then(function(){ toast.textContent=tx('js.also_copied','The letter is also copied, in case your email app shortens it.'); },function(){});
   });
   $('copy-addr').addEventListener('click',function(){
-    var t=$('st-email').textContent, done=function(){ $('toast').textContent='Address copied.'; }, fb=function(){ try{ var rg=document.createRange(); rg.selectNodeContents($('st-email')); var sl=window.getSelection(); sl.removeAllRanges(); sl.addRange(rg); }catch(e){} $('toast').textContent='Address selected. Press Cmd+C or Ctrl+C to copy it.'; };
+    var t=$('st-email').textContent, done=function(){ $('toast').textContent=tx('js.addr_copied','Address copied.'); }, fb=function(){ try{ var rg=document.createRange(); rg.selectNodeContents($('st-email')); var sl=window.getSelection(); sl.removeAllRanges(); sl.addRange(rg); }catch(e){} $('toast').textContent=tx('js.addr_selected','Address selected. Press Cmd+C or Ctrl+C to copy it.'); };
     try{ navigator.clipboard.writeText(t).then(done,fb); }catch(e){ fb(); }
   });
   $('copy').addEventListener('click',function(){
-    var fallback=function(){ try{ var rg=document.createRange(); rg.selectNodeContents(ta); var sl=window.getSelection(); sl.removeAllRanges(); sl.addRange(rg); }catch(e){} toast.textContent='Letter selected. Press Cmd+C or Ctrl+C to copy it.'; };
-    copyLetter().then(function(){ lab.textContent='Copied'; toast.textContent='Copied. Paste it into an email to your delegation.'; setTimeout(function(){lab.textContent='Copy the letter'},2400); },fallback);
+    var fallback=function(){ try{ var rg=document.createRange(); rg.selectNodeContents(ta); var sl=window.getSelection(); sl.removeAllRanges(); sl.addRange(rg); }catch(e){} toast.textContent=tx('js.letter_selected','Letter selected. Press Cmd+C or Ctrl+C to copy it.'); };
+    copyLetter().then(function(){ lab.textContent=tx('js.copied','Copied'); toast.textContent=tx('js.copied_toast','Copied. Paste it into an email to your delegation.'); setTimeout(function(){lab.textContent=COPY_LABEL},2400); },fallback);
   });
 
   /* hero: a window that travels down through the sea as the page scrolls */
