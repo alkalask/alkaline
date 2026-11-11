@@ -269,8 +269,20 @@ h1 canvas{display:block;height:min(62svh,46vw);aspect-ratio:4/5;border-radius:va
 .field input::placeholder{color:#6B7B87}
 .sendto{display:grid;gap:10px}
 .addr{font-weight:600;overflow-wrap:anywhere;user-select:all}
-.st-acts{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}
+.send{display:grid;gap:12px;justify-items:start}
+.send > .btn{min-height:60px;padding-inline:32px}
+.st-acts{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:0}
 .st-acts .btn{min-height:44px;padding:8px 18px;font-size:var(--small)}
+/* phones: once the letter is reached, Send the email stays at the bottom of the screen */
+.dock{display:none}
+@media (max-width:820px){
+  .dock{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:40;align-items:center;gap:18px;padding:12px max(var(--m),env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(var(--m),env(safe-area-inset-left,0px));background:var(--surface);transform:translateY(110%);visibility:hidden;transition:transform 320ms var(--ease),visibility 0s linear 320ms}
+  .dock.on{transform:none;visibility:visible;transition:transform 320ms var(--ease)}
+  .dock-top{flex:none;display:inline-flex;align-items:center;min-height:44px;font-size:var(--small);font-weight:600;color:var(--ink)}
+  .dock-send{flex:1;min-height:52px;padding-inline:16px}
+  .send > .btn{width:100%}
+  footer{padding-bottom:110px}
+}
 .sheet{grid-column:5 / -1;background:var(--surface);border-radius:var(--r);padding:clamp(24px,4.5vw,72px)}
 .letter-body{max-width:36em;margin-inline:auto;font-size:var(--body);line-height:1.6;outline:none}
 .letter-body p + p{margin-top:1em}
@@ -609,15 +621,17 @@ h2,h3,.lead{overflow-wrap:break-word}
 <div hidden="" id="st-hit">
 <p>Inviala a: <strong id="st-org"></strong></p>
 <p class="addr" id="st-email"></p>
-<p class="st-acts"><button class="btn btn-ink" id="copy-addr" type="button">Copia l’indirizzo</button> <a href="#letter" id="st-mail">Apri un’email con la lettera</a></p>
 </div>
 <p hidden="" id="st-none">L’elenco dell’ONU non riporta alcuna email per questo Paese. <a href="https://unfccc.int/process/parties-non-party-stakeholders/parties/national-focal-point" rel="noopener" target="_blank">Cercala nell’elenco</a>.</p>
 <p class="note">Contatti come indicati dal segretariato ONU per il clima l’11 novembre 2026. Cambiano, quindi <a href="https://unfccc.int/process/parties-non-party-stakeholders/parties/national-focal-point" rel="noopener" target="_blank">verifica nell’elenco</a> prima di inviare.</p>
 </div>
-<button class="btn" id="copy" type="button"><span id="copy-label">Copia la lettera</span></button>
+<div class="send">
+<a class="btn" href="mailto:?subject=Fund%20independent%20research%20on%20ocean%20alkalinity%20enhancement" id="st-mail">Invia l’email</a>
+<p class="st-acts"><button class="btn btn-ink" hidden="" id="copy-addr" type="button">Copia l’indirizzo</button> <button class="btn btn-ink" id="copy" type="button"><span id="copy-label">Copia la lettera</span></button></p>
+</div>
 <p aria-live="polite" class="toast" id="toast" role="status"></p>
 <p class="brief-link"><span class="ph-cop">Sei alla COP31 di persona? </span><a href="../cop31-brief.pdf" rel="noopener" target="_blank">Scarica la sintesi di una pagina</a> (PDF) da stampare o consegnare a mano.</p>
-<p class="note">Questa pagina non salva nulla e non invia nulla. Sei tu a incollare la lettera nella tua email.</p>
+<p class="note">Questa pagina non salva né invia nulla. L’email si apre nella tua app di posta.</p>
 </div>
 <div class="sheet">
 <div aria-label="Testo della lettera, modificabile" aria-multiline="true" class="letter-body" contenteditable="true" id="letter-text" role="textbox" spellcheck="true">
@@ -752,6 +766,10 @@ h2,h3,.lead{overflow-wrap:break-word}
 <span>Questa pagina non raccoglie dati personali e non installa cookie.</span>
 </div>
 </footer>
+</div>
+<div aria-hidden="true" class="dock" id="dock">
+<a class="dock-top" href="#top">Torna su</a>
+<a class="btn dock-send" href="mailto:?subject=Fund%20independent%20research%20on%20ocean%20alkalinity%20enhancement" id="dock-send">Invia l’email</a>
 </div>
 </div>
 <script>window.I18N={"js.st_before": "Giorni all’apertura della COP31 ad Antalya: {n}.", "js.fs_before": "Giorni all’apertura della COP31: {n}. I negoziati si svolgono dal 9 al 20 novembre 2026.", "js.st_during": "La COP31 è in corso ad Antalya. Giorni di negoziati rimasti: {n}.", "js.fs_during": "Giorni rimasti: {n}. I negoziati si chiudono il 20 novembre 2026.", "js.st_last": "La COP31 è in corso ad Antalya. Oggi è l’ultimo giorno di negoziati.", "js.fs_last": "Ultimo giorno. I negoziati si chiudono oggi, 20 novembre 2026.", "js.st_after": "La COP31 si è chiusa il 20 novembre 2026. La richiesta resta valida.", "js.fs_after": "La COP31 si è chiusa. La richiesta passa ai piani nazionali.", "js.other": "Il mio Paese non è nell’elenco", "js.nfp": "punto focale nazionale", "js.subject": "Finanziare la ricerca indipendente sull’aumento dell’alcalinità oceanica", "js.also_copied": "La lettera è stata anche copiata, nel caso la tua app di posta la accorci.", "js.addr_copied": "Indirizzo copiato.", "js.addr_selected": "Indirizzo selezionato. Premi Cmd+C o Ctrl+C per copiarlo.", "js.letter_selected": "Lettera selezionata. Premi Cmd+C o Ctrl+C per copiarla.", "js.copied": "Copiato", "js.copied_toast": "Copiata. Incollala in un’email alla tua delegazione.", "js.source": "Fonte"};</script>
@@ -1058,7 +1076,6 @@ Zimbabwe|Ministry of Environment, Climate, Tourism and Hospitality Industry|clim
     none.hidden=true; hit.hidden=false;
     $('st-org').textContent=(r[1]||tx('js.nfp','the national focal point'))+', '+r[0].replace(/\s*\(.*\)$/,'');
     $('st-email').textContent=r[2];
-    $('st-mail').href='mailto:'+r[2]+'?subject='+encodeURIComponent(SUBJECT);
   });
   /* a first guess at the visitor's country, from the region in the browser's language setting; nothing is sent anywhere.
      English (US) is the default on many devices worldwide, so it is not used as a signal. */
@@ -1077,14 +1094,18 @@ Zimbabwe|Ministry of Environment, Climate, Tourism and Hospitality Industry|clim
       return hit;
     }catch(e){ return -1; }
   }
+  fCountry.addEventListener('change',function(){ $('copy-addr').hidden=$('st-hit').hidden; });
   if(!fCountry.value){ var gi=guessCountry(NFP.map(function(r){ return r[0]; })); if(gi>=0){ fCountry.value=String(gi); fCountry.dispatchEvent(new Event('change')); } }
   /* the email draft carries the letter as written now; it is also copied, in case an email app shortens a long draft */
-  $('st-mail').addEventListener('click',function(){
-    var addr=$('st-email').textContent; if(!addr) return;
-    var text=letterText();
-    this.href='mailto:'+addr+'?subject='+encodeURIComponent(SUBJECT)+'&body='+encodeURIComponent(text.replace(/\n/g,'\r\n'));
+  /* Send the email: opens the reader's own email app with the letter written in; the address is filled in when we have one.
+     The letter is also copied, in case an email app shortens a long draft. */
+  function sendMail(){
+    var addr=$('st-hit').hidden?'':$('st-email').textContent;
+    this.href='mailto:'+addr+'?subject='+encodeURIComponent(SUBJECT)+'&body='+encodeURIComponent(letterText().replace(/\n/g,'\r\n'));
     copyLetter().then(function(){ toast.textContent=tx('js.also_copied','The letter is also copied, in case your email app shortens it.'); },function(){});
-  });
+  }
+  $('st-mail').addEventListener('click',sendMail);
+  if($('dock-send')) $('dock-send').addEventListener('click',sendMail);
   $('copy-addr').addEventListener('click',function(){
     var t=$('st-email').textContent, done=function(){ $('toast').textContent=tx('js.addr_copied','Address copied.'); }, fb=function(){ try{ var rg=document.createRange(); rg.selectNodeContents($('st-email')); var sl=window.getSelection(); sl.removeAllRanges(); sl.addRange(rg); }catch(e){} $('toast').textContent=tx('js.addr_selected','Address selected. Press Cmd+C or Ctrl+C to copy it.'); };
     try{ navigator.clipboard.writeText(t).then(done,fb); }catch(e){ fb(); }
@@ -1093,6 +1114,21 @@ Zimbabwe|Ministry of Environment, Climate, Tourism and Hospitality Industry|clim
     var fallback=function(){ try{ var rg=document.createRange(); rg.selectNodeContents(ta); var sl=window.getSelection(); sl.removeAllRanges(); sl.addRange(rg); }catch(e){} toast.textContent=tx('js.letter_selected','Letter selected. Press Cmd+C or Ctrl+C to copy it.'); };
     copyLetter().then(function(){ lab.textContent=tx('js.copied','Copied'); toast.textContent=tx('js.copied_toast','Copied. Paste it into an email to your delegation.'); setTimeout(function(){lab.textContent=COPY_LABEL},2400); },fallback);
   });
+
+  /* phone bar: shows once the reader reaches the letter, unless the main button is on screen or they are typing */
+  (function(){
+    var dock=$('dock'), sec=$('letter'), main=$('st-mail'), typing=false, ticking=false; if(!dock||!sec) return;
+    var phone=window.matchMedia?window.matchMedia('(max-width:820px)'):{matches:false};
+    function update(){ ticking=false;
+      var r=main.getBoundingClientRect(), mainOn=r.bottom>0&&r.top<innerHeight, past=sec.getBoundingClientRect().top<innerHeight*0.5;
+      var on=phone.matches&&past&&!mainOn&&!typing;
+      dock.classList.toggle('on',on); dock.setAttribute('aria-hidden',on?'false':'true'); }
+    function soon(){ if(!ticking){ ticking=true; requestAnimationFrame(update); } }
+    addEventListener('scroll',soon,{passive:true}); addEventListener('resize',soon);
+    document.addEventListener('focusin',function(e){ if(e.target.matches('input,select,textarea,[contenteditable="true"]')){ typing=true; soon(); } });
+    document.addEventListener('focusout',function(){ typing=false; soon(); });
+    update();
+  })();
 
   /* hero: a window that travels down through the sea as the page scrolls */
   var hero=document.querySelector('.hero'), stage=hero.querySelector('.stage'), cv=$('sea'), ctx=cv.getContext('2d'), cap=$('cap'), CAPS=[cap.innerHTML].concat([].map.call(hero.querySelectorAll('.cap-more'),function(n){ return n.innerHTML; }));
